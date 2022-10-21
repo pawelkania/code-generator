@@ -43,6 +43,7 @@ trait ValueTrait
 
     /**
      * @param mixed $value
+     *
      * @return string|null
      */
     protected function renderTyped($value)
@@ -60,7 +61,9 @@ trait ValueTrait
 
                 break;
             case 'string':
-                $value = sprintf('\'%s\'', addslashes($value));
+                if (strstr($value, 'self::', true) !== '') {
+                    $value = sprintf('\'%s\'', addslashes($value));
+                }
 
                 break;
             case 'array':
